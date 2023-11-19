@@ -2,46 +2,39 @@
 
 namespace App\Controller;
 
-use App\Entity\Monster;
-use App\Repository\MonsterRepository;
-use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use App\Entity\Character;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Validator\ConstraintViolation;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class ApiMonsterController extends AbstractController
+class ApiCharacterController extends AbstractController
 {
     /**
-     * Return information about a monster
+     * Return information about a character
      */
-    #[Route('/api/monster/{id}', name: 'app_api_monster_get_item', methods: 'GET')]
-    public function getMonsterItem(Monster $monster): JsonResponse
+    #[Route('/api/character/{id}', name: 'app_api_character_get_item', methods: 'GET')]
+    public function getCharacterItem(Character $character): JsonResponse
     {
         return $this->json(
-            $monster,
+            $character,
             Response::HTTP_OK,
             [],
-            ['groups' => 'api_get_monster']);
+            ['groups' => 'api_get_character']);
     }
 
     /**
-     * Return informations about all monsters
+     * Return informations about all characters
      */
-    #[Route('/api/monster', name: 'app_api_monster_get_collections', methods: 'GET')]
-    public function getMonsterCollection(MonsterRepository $monsterRepository): JsonResponse
+    #[Route('/api/character', name: 'app_api_character_get_collections', methods: 'GET')]
+    public function getMonsterCollection(CharacterRepository $characterRepository): JsonResponse
     {
-        $monsters = $monsterRepository->findAll();
+        $characters = $characterRepository->findAll();
 
         return $this->json(
-            $monsters,
+            $characters,
             Response::HTTP_OK,
             [],
-            ['groups' => 'api_get_monster']);
+            ['groups' => 'api_get_character']);
     }
 
     /**

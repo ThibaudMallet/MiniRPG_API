@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\MonsterRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MonsterRepository::class)]
 class Monster
@@ -16,16 +15,19 @@ class Monster
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    // #[Assert\NotBlank(groups: ['api_monster_get'])]
+    #[Groups(['api_get_monster'])]
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Groups(['api_get_monster'])]
     private ?int $attack = null;
 
     #[ORM\Column]
+    #[Groups(['api_get_monster'])]
     private ?int $life = null;
 
     #[ORM\Column]
+    #[Groups(['api_get_monster'])]
     private ?int $shield = null;
 
     #[ORM\Column]

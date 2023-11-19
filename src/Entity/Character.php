@@ -17,26 +17,33 @@ class Character
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['api_get_character'])]
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Groups(['api_get_character'])]
     private ?int $attack = null;
 
     #[ORM\Column]
+    #[Groups(['api_get_character'])]
     private ?int $life = null;
 
     #[ORM\Column]
+    #[Groups(['api_get_character'])]
     private ?int $shield = null;
 
     #[ORM\Column]
+    #[Groups(['api_get_character'])]
     private ?int $experience = null;
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['api_get_character'])]
     private ?User $user = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['api_get_character'])]
     private ?Level $level = null;
 
     #[ORM\OneToMany(mappedBy: 'character_id', targetEntity: Fight::class, orphanRemoval: true)]
