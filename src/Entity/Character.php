@@ -17,7 +17,7 @@ class Character
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-        #[Assert\NotBlank(message: 'Name should not be blank')]
+    #[Assert\NotBlank(message: 'Name should not be blank')]
     #[Assert\Type(
         type: 'string',
         message: 'The value {{ value }} is not a valid {{ type }}.',
@@ -84,7 +84,6 @@ class Character
     private ?Level $level = null;
 
     #[ORM\OneToMany(mappedBy: 'character_id', targetEntity: Fight::class, orphanRemoval: true)]
-    #[Assert\Type(Fight::class)]
     private Collection $fights;
 
     public function __construct()
