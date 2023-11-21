@@ -14,24 +14,40 @@ class Fight
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Lvl_monster should not be blank')]
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\GreaterThan(0)]
     private ?int $lvl_monster = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Is_victory should not be blank')]
     private ?bool $is_victory = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Exp_win should not be blank')]
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\PositiveOrZero]
     private ?int $exp_win = null;
 
     #[ORM\ManyToOne(inversedBy: 'fights')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\Type(User::class)]
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'fights')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\Type(Character::class)]
     private ?Character $character = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\Type(Monster::class)]
     private ?Monster $monster = null;
 
     public function getId(): ?int
