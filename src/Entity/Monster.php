@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\MonsterRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MonsterRepository::class)]
 class Monster
@@ -15,28 +16,75 @@ class Monster
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: 'Name should not be blank')]
+    #[Assert\Type(
+        type: 'string',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'The name must be at least {{ limit }} characters long',
+        maxMessage: 'The name cannot be longer than {{ limit }} characters',
+    )]
     #[Groups(['api_get_monster'])]
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Attack should not be blank')]
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
     #[Groups(['api_get_monster'])]
+    #[Assert\GreaterThan(0)]
     private ?int $attack = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Life should not be blank')]
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
     #[Groups(['api_get_monster'])]
+    #[Assert\GreaterThan(0)]
     private ?int $life = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Shield should not be blank')]
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
     #[Groups(['api_get_monster'])]
+    #[Assert\GreaterThanOrEqual(0)]
     private ?int $shield = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Lvl_min should not be blank')]
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\GreaterThan(0)]
     private ?int $lvl_min = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Lvl_max should not be blank')]
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\GreaterThan(0)]
     private ?int $lvl_max = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Base_exp_reward should not be blank')]
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\GreaterThan(0)]
     private ?int $base_exp_reward = null;
 
     public function getId(): ?int
