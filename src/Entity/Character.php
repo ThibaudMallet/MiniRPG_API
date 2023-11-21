@@ -17,36 +17,74 @@ class Character
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+        #[Assert\NotBlank(message: 'Name should not be blank')]
+    #[Assert\Type(
+        type: 'string',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'The name must be at least {{ limit }} characters long',
+        maxMessage: 'The name cannot be longer than {{ limit }} characters',
+    )]
     #[Groups(['api_get_character'])]
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Attack should not be blank')]
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\GreaterThan(0)]
     #[Groups(['api_get_character'])]
     private ?int $attack = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Life should not be blank')]
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\GreaterThan(0)]
     #[Groups(['api_get_character'])]
     private ?int $life = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Shield should not be blank')]
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\GreaterThanOrEqual(0)]
     #[Groups(['api_get_character'])]
     private ?int $shield = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Experience should not be blank')]
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\PositiveOrZero]
     #[Groups(['api_get_character'])]
     private ?int $experience = null;
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\Type(User::class)]
     #[Groups(['api_get_character'])]
     private ?User $user = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\Type(Level::class)]
     #[Groups(['api_get_character'])]
     private ?Level $level = null;
 
     #[ORM\OneToMany(mappedBy: 'character_id', targetEntity: Fight::class, orphanRemoval: true)]
+    #[Assert\Type(Fight::class)]
     private Collection $fights;
 
     public function __construct()
