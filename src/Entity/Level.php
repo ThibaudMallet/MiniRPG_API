@@ -14,9 +14,21 @@ class Level
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Exp_to_next_lvl should not be blank')]
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\Positive]
     private ?int $exp_to_next_lvl = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Base_experience should not be blank')]
+    #[Assert\Type(
+        type: 'integer',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\PositiveOrZero]
     private ?int $base_experience = null;
 
     public function getId(): ?int
