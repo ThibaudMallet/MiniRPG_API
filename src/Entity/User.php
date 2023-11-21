@@ -18,6 +18,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 50, unique: true)]
+    #[Assert\NotBlank(message: 'Username should not be blank')]
+    #[Assert\Type(
+        type: 'string',
+        message: 'The value {{ value }} is not a valid {{ type }}.',
+    )]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'The Username must be at least {{ limit }} characters long',
+        maxMessage: 'The Username cannot be longer than {{ limit }} characters',
+    )]
     private ?string $username = null;
 
     #[ORM\Column]
