@@ -16,9 +16,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ApiMonsterController extends AbstractController
 {
-    /**
-     * Return information about a monster
-     */
     #[Route('/api/monster/{id}', name: 'app_api_monster_get_item', methods: 'GET')]
     public function getMonsterItem(Monster $monster): JsonResponse
     {
@@ -29,9 +26,6 @@ class ApiMonsterController extends AbstractController
             ['groups' => 'api_get_monster']);
     }
 
-    /**
-     * Return informations about all monsters
-     */
     #[Route('/api/monster', name: 'app_api_monster_get_collections', methods: 'GET')]
     public function getMonsterCollection(MonsterRepository $monsterRepository): JsonResponse
     {

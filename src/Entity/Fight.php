@@ -14,15 +14,6 @@ class Fight
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank(message: 'Lvl_monster should not be blank')]
-    #[Assert\Type(
-        type: 'integer',
-        message: 'The value {{ value }} is not a valid {{ type }}.',
-    )]
-    #[Assert\GreaterThan(0)]
-    private ?int $lvl_monster = null;
-
-    #[ORM\Column]
     #[Assert\NotBlank(message: 'Is_victory should not be blank')]
     private ?bool $is_victory = null;
 
@@ -91,36 +82,36 @@ class Fight
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUserId(?User $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 
         return $this;
     }
 
-    public function getCharacterId(): ?Character
+    public function getCharacter(): ?Character
     {
         return $this->character;
     }
 
-    public function setCharacterId(?Character $character): static
+    public function setCharacter(?Character $character): static
     {
         $this->character = $character;
 
         return $this;
     }
 
-    public function getMonsterId(): ?Monster
+    public function getMonster(): ?Monster
     {
         return $this->monster;
     }
 
-    public function setMonsterId(?Monster $monster): static
+    public function setMonster(?Monster $monster): static
     {
         $this->monster = $monster;
 

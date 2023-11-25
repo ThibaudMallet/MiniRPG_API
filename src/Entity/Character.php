@@ -88,7 +88,8 @@ class Character
 
     public function __construct()
     {
-        $this->fights = new ArrayCollection();
+        $this->fights       = new ArrayCollection();
+        $this->experience   = 0;
     }
 
     public function getId(): ?int
@@ -156,24 +157,24 @@ class Character
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUserId(?User $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 
         return $this;
     }
 
-    public function getlevelId(): ?Level
+    public function getlevel(): ?Level
     {
         return $this->level;
     }
 
-    public function setlevelId(?Level $level): static
+    public function setlevel(?Level $level): static
     {
         $this->level = $level;
 
