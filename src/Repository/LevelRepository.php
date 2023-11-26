@@ -21,20 +21,20 @@ class LevelRepository extends ServiceEntityRepository
         parent::__construct($registry, Level::class);
     }
 
-//    /**
-//     * @return Level[] Returns an array of Level objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('l')
-//            ->andWhere('l.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('l.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+   /**
+    * @return Level Retourne le Level qui correspond au personnage selon son exp
+    */
+   public function findLevelByCharactersExperience($value): ?Level
+   {
+       return $this->createQueryBuilder('l')
+           ->andWhere('l.base_experience <= :val')
+           ->setParameter('val', $value)
+           ->orderBy('l.base_experience', 'DESC')
+           ->setMaxResults(1)
+           ->getQuery()
+           ->getOneOrNullResult()
+       ;
+   }
 
 //    public function findOneBySomeField($value): ?Level
 //    {
