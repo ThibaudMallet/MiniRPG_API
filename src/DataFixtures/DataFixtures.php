@@ -7,7 +7,6 @@ use App\Entity\Fight;
 use App\Entity\Level;
 use App\Entity\Monster;
 use App\Entity\Character;
-use Doctrine\DBAL\Connection;
 use App\Repository\LevelRepository;
 use App\DataFixtures\MonstersLibData;
 use Doctrine\Persistence\ObjectManager;
@@ -18,45 +17,17 @@ class DataFixtures extends Fixture
 {
 
     private UserPasswordHasherInterface $hasher;
-    private $connection;
     private $monstersLibData;
     private $levelRepository;
 
-    public function __construct(UserPasswordHasherInterface $hasher, Connection $connection, MonstersLibData $monstersLibData, LevelRepository $levelRepository)
+    public function __construct(UserPasswordHasherInterface $hasher, MonstersLibData $monstersLibData, LevelRepository $levelRepository)
     {
         $this->hasher           = $hasher;
-        $this->connection       = $connection;
         $this->monstersLibData  = $monstersLibData;
         $this->levelRepository  = $levelRepository;
     }
 
     public function load(ObjectManager $manager)
-    {
-        $connection = $manager->getConnection();
-        $connection->beginTransaction();
-
-        try {
-            // $this->truncate();
-            $this->loadData($manager);
-
-            $connection->commit();
-        } catch (\Exception $e) {
-            $connection->rollBack();
-            throw $e;
-        }
-    }
-
-    // private function truncate()
-    // {
-    //     $this->connection->executeQuery('SET foreign_key_checks = 0');
-    //     $this->connection->executeQuery('TRUNCATE TABLE user');
-    //     $this->connection->executeQuery('TRUNCATE TABLE level');
-    //     $this->connection->executeQuery('TRUNCATE TABLE character');
-    //     $this->connection->executeQuery('TRUNCATE TABLE monster');
-    //     $this->connection->executeQuery('TRUNCATE TABLE fight');
-    // }
-
-    public function loadData(ObjectManager $manager)
     {
 
         $users      = [];
